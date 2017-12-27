@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>    
+    <title>Data Reader</title>
+</head>
+
+
+
+<body>
+    <center>
+        <div class='jumbotron' style="max-width: 950px;">
+             <h1>Enter File name</h1>
+             <p>Please enter the correct file name.</p>
+        </div>
+
+        <form role='form' method='POST' action='/display'>
+            <div class='form-group'>
+	        <input class='form-control' type='text' value='' name='file_box' placeholder='Enter text file name...' style='max-width: 200px;' autofocus required>
+ 	    </div>
+            
+            <p>Optional search choices to create the histogram</p><br>
+
+	    <div class='form-group'>System Name:
+		<input class='from-control' type='text' value='' name='system_box' placeholder='...' style='max-width: 15 px;'>
+	    </div>
+	    <div class='form-group'>Cluster Size:
+		<input class='from-control' type='text' value='' name='dataset_box' placeholder='...' style='max-width: 15 px;'>
+	    </div>
+
+
+	    <div class='form-group'>Data set:
+		<input class='from-control' type='text' value='' name='cluster_box' placeholder='...' style='max-width: 15 px;'>
+	    </div>
+
+	    <div class='form-group'>Workload name:
+		<input class='from-control' type='text' value='' name='workload_box' placeholder='...' style='max-width: 15 px;'>
+	    </div>
+	    <button type='submit' class='btn btn-primary'>Get File</button>
+           
+        </form
+                  
+        <br><h3>**Warning**</h3>
+	<p>Input the correct restrictions when specificying your search</p>
+        <p>there is a possibility that an empty histogram will appear if user searches incorrectly</p>            
+    </center>
+</body>
+
+</html>

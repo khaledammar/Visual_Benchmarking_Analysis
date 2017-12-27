@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+
+
+
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link href="/static/d4.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+
+    <script src="/static/d4.js"></script>
+    <script src="/static/d3.js"></script>
+
+    <form role="form" method="GET" action="/">
+    	<button  type="submit" class="btn btn-primary" id="homeButton">Home</button>
+    </form>
+
+
+    <p> {{ histogram_data }} </p><br>
+
+    <br><p>These are the search criteria that have been dispalyed {{ display_labels }}</p>
+</body>
+
+<style>
+
+
+    table, td, th{
+	border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+    	border-collapse: collapse;
+	width: 45%;
+    }
+
+    th, td{
+    	padding: 5px;
+    }
+
+    table#legend{
+	border-collapse: collapse;
+	width: 45%
+    }
+
+    table#legend th{
+	
+    }
+
+
+    chart1 .d4 .series0 .bar.fill, chart1.load {
+	fill: darkgray;
+	background-color: darkgray;
+    }
+
+    chart1 .d4 .series1 .bar.fill, chart1.execute {
+	fill: dodgerblue;
+	background-color: dodgerblue;
+    }
+    chart1 .d4 .series2 .bar.fill, chart1.save {
+	fill: crimson;
+	background-color: crimson;
+    }
+
+    chart1 .d4 .series3 .bar.fill, chart1.msc{
+	fill: green;
+	background-color: green;
+    }
+
+</style>
+
+<script>
+    if (document.getElementById('nextButton').clicked == true){
+	alert("next button was clicked")
+    }
+
+</script>
+
+<body>
+    <div style="width:400px;">
+	<div style="float: left; width:130px">
+	    <form role="form" method="POST" action="/previous">
+		<button type="submit" class="btn btn-primary" id="previousButton">Previous Histogram</button>
+	    </form>
+	</div>
+
+	<div style="float: right; width:255px">
+	    <form role="form" method="POST" action="/next">
+		<button type="submit" class="btn btn-primary" id="nextButton">Next Histogram</button>
+	    </form>
+        </div>
+    </div>
+</body>
+
+
+<table id="legend">
+   <tr>
+        <th bgcolor="darkgray" style="color:darkgray;">He</th>
+	<td>Load Time</td>
+	<th bgcolor="dodgerblue" style="color:dodgerblue">He</th>
+	<td>Execution Time</td>
+	<th bgcolor="crimson" style="color:crimson">He</th>
+	<td>Save Time</td>
+	<th bgcolor="green" style="color:green">He</th>
+	<td>Over Head</td>
+   </tr>
+</table>
+
+<chart1>
+</chart1>
+
+<table id="legendChart">
+</table>
+<script>
+
+'use strict';
+
+$(document).ready(function(){
+  var data = {{ histogram_data|safe }};
+  var numDisplays = {{ display_count|safe }};
+  var legendData = {{ table_values|safe }};
+
+  
+
+
+  document.getElementById("legendChart").innerHTML = legendData[0]
+  if (numDisplays[0] == 0) {
+      document.getElementById("previousButton").disabled = true;
+  }
+
+  if (numDisplays[0] == numDisplays[1]) {
+      document.getElementById("nextButton").disabled = true;
+  }
+
+
+  var parsedData = d4.parsers.nestedStack()
+    .x('x-axis')
+    .y('time_type')
+    .value('time')(data);
+
+  var chart = d4.charts.stackedColumn()
+  .x(function(x){
+    x.key('x-axis');
+  })
+  .y(function(y){
+    y
+    .key('time');
+
+  });
+
+  d3.select('chart1')
+  .datum(parsedData.data)
+  .call(chart);
+});
+
+</script>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <title>Histogram Page</title>
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link href="/static/d4.css" rel="stylesheet" />
+
+</head>
+
+<body>
+    <center>
+	<h1>Total run times of each of the systems</h1>
+    </center>
+    <script src="/static/d4.js"></script>
+    <script src="/static/d3.js"></script>
+</body>
+
+<chart>
+
+
+</chart>
+
+
+
+
+<body>
+
+
+    <center>
+	<h2>**Warning**</h2>
+	<p>If the inputted text file is in</p>
+	<p>wrong format program will crash</p>
+    </center>
+</body>
+   
+<script>
+
+    var test_runtime = {{ data|safe }};
+    var chart = d4.charts.column();
+    d3.select('chart')
+      .datum(test_runtime)
+      .call(chart) 
+
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> 
+
+
+
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link href="/static/d4.css" rel="stylesheet" />
+
+</head>
+
+<style>
+
+    table, td, th{
+	border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    table {
+    	border-collapse: collapse;
+	width: 45%;
+        margin:0 0 0px 0px
+    }
+
+    th, td{
+    	padding: 5px;
+    }
+
+
+
+    .d4 .bar.positive.fill {
+	fill: cornflowerblue;
+
+    }
+</style>
+
+<body>
+
+    <script src="/static/d4.js"></script>
+    <script src="/static/d3.js"></script>
+    
+    <form role="form" method="GET" action="/">
+	<button type="submit" class="btn btn-primary" id="homebutton">Home</button>
+    </form>
+
+    <p> These are the search values </p>
+    <p>  {{ histogram_data }} </p><br>
+
+
+    <br><p>These are the search criteria that have been displayed {{ display_labels }}</p>
+</body>
+
+
+
+<chart1>
+</chart1>
+
+
+<body>
+    <div style="width:400px;">
+	<div style="float: left; width:130px">
+	    <form role="form" method="POST" action="/previous">
+		<button type="submit" class="btn btn-primary" id="previousButton" value="1">Previous Histogram</button>
+	    </form>
+	</div>
+
+	<div style="float: right; width:255px">
+	    <form role="form" method="POST" action="/next">
+		<button type="submit" class="btn btn-primary" id="nextButton" value="1">Next Histogram</button>
+	    </form>
+        </div>
+    </div>
+</body>
+
+
+<table id="legendChart"> 
+</table>
+
+
+<script>
+     
+    var histogramData = {{ histogram_data|safe }};
+    var numDisplays = {{ display_count|safe }};
+    var legendValues = {{ table_values|safe }};
+
+    document.getElementById("legendChart").innerHTML = legendValues[0]
+
+    if (numDisplays[0] == 0) {
+	document.getElementById("previousButton").disabled = true;
+    }    
+
+    if (numDisplays[0] == numDisplays[1] ) {
+        document.getElementById("nextButton").disabled = true;
+    }
+
+    var chart = d4.charts.column();
+    d3.select('chart1')
+      .datum(histogramData)
+      .call(chart)   
+</script>
+
+
+</html>
+

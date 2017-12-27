@@ -1,0 +1,192 @@
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>    
+    <title>Data Reader</title>
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <link href="/static/d4.css" rel="stylesheet" />
+
+
+
+
+
+
+</head>
+
+
+
+<body>
+
+    <script src="/static/d4.js"></script>
+    <script src="/static/d3.js"></script>
+    <center>
+        <div class='jumbotron' style="max-width: 950px;">
+             <h1>Select a Summary File</h1>
+             <p>summary file must be in same directory as summary_reader.py.</p>
+        </div>
+
+        <form role="form" method="POST" action="/display">
+            <div class="form-group">
+
+
+ 	    </div>
+	    <input type="file" name="file_box"/>
+
+            <button type="submit" class="btn btn-primary"> Create Histogram </button><br>
+	    <p>Optional search choices to create the histogram</p><br>
+
+
+
+
+	<div class="btn-group">
+	    <div class="btn-group">
+		<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Systems
+                <span class="caret"></span></button>
+
+		    <ul class="dropdown-menu" role="menu">
+			<input type="radio" name='system' value="None" checked> None </input><br>
+			<input type="radio" name="system" value="graphlab-sync-auto-itr"> graphlab-sync-auto-itr </input><br>
+			<input type="radio" name="system" value="graphlab-sync-random-itr"> graphlab-sync-random-itr </input><br>
+			<input type="radio" name="system" value="graphlab-async-random-tol"> graphlab-async-random-tol </input><br>
+			<input type="radio" name="system" value="graphlab-sync-random-tol"> graphlab-sync-random-tol </input><br>
+			<input type="radio" name="system" value="graphlab-sync-auto-tol"> graphlab-sync-auto-tol </input><br>
+			<input type="radio" name="system" value="graphlab-async-auto-tol"> graphlab-async-auto-tol </input><br>
+			<input type="radio" name="system" value="graphlab-sync-auto"> graphlab-sync-auto </input><br>
+			<input type="radio" name="system" value="graphlab-sync-random">graphlab-sync-random</input><br>
+			<input type="radio" name="system" value="spark-itr">spark-itr</input><br>
+			<input type="radio" name="system" value="spark-tol">spark-tol</input><br>
+			<input type="radio" name="system" value="giraph">giraph</input><br>
+			<input type="radio" name="system" value="blogel-Vertex">blogel-Vertex</input><br>
+			<input type="radio" name="system" value="veritca">vertica</input><br>
+                    </ul>
+            </div>
+
+	    <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Cluster Size
+                <span class="caret"></span></button>
+		
+		    <ul class="dropdown-menu" role="menu">
+                        <input type="radio" name="cluster" value="None" checked> None </input><br>
+                        <input type="radio" name="cluster" value="16"> 16 </input><br>
+                        <input type="radio" name="cluster" value="32"> 32 </input><br>
+                        <input type="radio" name="cluster" value="64"> 64 </input><br>
+			<input type="radio" name="cluster" value="128"> 128 </input><br>
+		    </ul>
+            </div>
+
+
+	    <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Dataset
+                <span class="caret"></span></button>
+		
+		    <ul class="dropdown-menu" role="menu">
+                        <input type="radio" name="dataset" value="None" checked> None </input><br>
+                        <input type="radio" name="dataset" value="twitter"> twitter </input><br>
+                        <input type="radio" name="dataset" value="world-road"> world-road </input><br>
+                        <input type="radio" name="dataset" value="uk0705"> uk0705 </input><br>
+                        <input type="radio" name="dataset" value="clueweb"> clueweb </input><br>
+		    </ul>
+            </div>
+
+	    <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> Workload Name
+                <span class="caret"></span></button>
+		
+		    <ul class="dropdown-menu" role="menu">
+                        <input type="radio" name="workload" value="None" checked> None </input><br>
+                        <input type="radio" name="workload" value="pagerank"> pagerank </input><br>
+                        <input type="radio" name="workload" value="wcc"> wcc </input><br>
+                        <input type="radio" name="workload" value="sssp"> sssp </input><br>
+                        <input type="radio" name="workload" value="khop"> khop </input><br>
+		    </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>Select one to be the x-axis of the histogram<br></p>
+
+		<label class="radio-inline">
+		    <input type="radio" name="x_axis" value="0" checked> Systems </input>
+                </label>
+
+                <label class="radio-inline">
+		    <input type="radio" name="x_axis" value="1"> Cluster Size </input>
+                </label>
+
+                <label class="radio-inline">
+		    <input type="radio" name="x_axis" value="2"> Dataset </input>
+                </label>
+
+		<label class="radio-inline">
+		    <input type="radio" name="x_axis" value="3">Workload </input>
+		</label>
+ 
+        </div>
+
+        <div class="container">
+            <br>
+	    <p>Select the type of graph you wish to have<br></p>
+            <label class="radio-inline">
+                <input type="radio" name="graph_type" value="solid" checked> Solid Bars</input>
+            </label>
+
+            <label class="radio-inline">
+                <input type="radio" name="graph_type" value="stack"> Stacked Bars</input>
+            </label> 
+        </div>
+
+
+        </form>     
+
+
+                  
+        <br><h3>**Warning**</h3>
+        <p> *Select atleast 2 search criteria or else the</p>
+        <p> app will not be able to create this histograms</p>
+        <p> *When choosing for which parameter to be on the x-axis</p>
+        <p> it is advised that it should be the parameter that has no <p>
+        <p> specific search value inputted</p>
+
+
+
+    </center>
+
+<script>
+    
+    var status = '{{ warning|safe }}';
+    if (status == 'True') {
+	alert('You did not input enough search parameters. After the message is displayed it will set all parameters to None')
+
+    }
+    
+
+</script>
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+</html>
